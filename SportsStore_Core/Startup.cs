@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SportsStore_Core
 {
@@ -40,6 +41,10 @@ namespace SportsStore_Core
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseMvc(routes => {
+                routes.MapRoute(
+                    name: "pagination",
+                    template: "Products/Page{productPage}",
+                    defaults: new {Controller = "Product", action = "List"});
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Product}/{action=List}/{id?}");
