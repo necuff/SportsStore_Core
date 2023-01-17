@@ -42,6 +42,7 @@ namespace SportsStore_Core
 
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: null,
