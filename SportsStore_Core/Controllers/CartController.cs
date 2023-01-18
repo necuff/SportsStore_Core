@@ -10,15 +10,17 @@ namespace SportsStore_Core.Controllers
     public class CartController : Controller
     {
         private IProductRepository repository;
+        private Cart cart;
 
-        public CartController(IProductRepository productRepository)
+        public CartController(IProductRepository productRepository, Cart cartService)
         {
             repository = productRepository;
+            cart = cartService;
         }
 
         public ViewResult Index(string returnUrl)
         {
-            return View(new CartIndexViewModel { Cart = GetCart(), ReturnUrl = returnUrl });
+            return View(new CartIndexViewModel { Cart = cart, ReturnUrl = returnUrl });
         }
 
         public RedirectToActionResult AddToCart(int productId, string returnUrl)
@@ -26,10 +28,8 @@ namespace SportsStore_Core.Controllers
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
 
             if(product != null)
-            {
-                Cart cart = GetCart();
+            {               
                 cart.AddItem(product, 1);
-                SaveCart(cart);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -39,24 +39,10 @@ namespace SportsStore_Core.Controllers
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
 
             if(product != null)
-            {
-                Cart cart = GetCart();
-                cart.RemoveLine(product);
-                SaveCart(cart);
+            {                
+                cart.RemoveLine(product);                
             }
             return RedirectToAction("Index", new { returnUrl });
-        }
-
-
-        private Cart GetCart()
-        {
-            Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
-            return cart;
-        }
-
-        private void SaveCart(Cart cart)
-        {
-            HttpContext.Session.SetJson("Cart", cart);
-        }
+        }        
     }
 }
