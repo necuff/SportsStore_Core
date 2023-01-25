@@ -62,7 +62,8 @@ namespace SportsStore_Core.Tests
 
             target.RemoveLine(p2);
             
-            Assert.Equal(0, target.Lines.Where(c => c.Product == p2).Count());
+            //Assert.Equal(0, target.Lines.Where(c => c.Product == p2).Count());
+            Assert.Empty(target.Lines.Where(c => c.Product == p2));
             Assert.Equal(2, target.Lines.Count());
         }
 
@@ -96,7 +97,8 @@ namespace SportsStore_Core.Tests
 
             target.Clear();
 
-            Assert.Equal(0, target.Lines.Count());
+            //Assert.Equal(0, target.Lines.Count());
+            Assert.Empty(target.Lines);
         }
     }
 }
