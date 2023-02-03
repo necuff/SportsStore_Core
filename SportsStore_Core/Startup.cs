@@ -79,6 +79,7 @@ namespace SportsStore_Core
             });
 
             SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
