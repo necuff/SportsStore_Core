@@ -48,6 +48,10 @@ namespace SportsStore_Core
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            } else
+            {
+                app.UseExceptionHandler("/Error");
             }
 
             app.UseStatusCodePages();
@@ -78,8 +82,8 @@ namespace SportsStore_Core
                 routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
             });
 
-            SeedData.EnsurePopulated(app);
-            IdentitySeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
+            //IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
