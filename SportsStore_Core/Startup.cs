@@ -31,7 +31,7 @@ namespace SportsStore_Core
                 options.UseSqlServer(
                     Configuration["Data:SportStoreIdentity:ConnectionString"]));
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();
